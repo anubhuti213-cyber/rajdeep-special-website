@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Rajdeep | The One & Only</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --red: #ff263b;
+    --blue: #258cff;
+    --gold: #f6c945;
+    --bg: #07080e;
+    --text: #ffffff;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Rajdhani', sans-serif;
+    overflow-x: hidden;
+    transition: background 0.5s;
+}
+
+/* THEME COLORS */
+
+body.spiderman {
+    --accent: var(--red);
+    --second: var(--blue);
+}
+
+body.batman {
+    --accent: var(--gold);
+    --second: #777f91;
+}
+
+/* BACKGROUND */
+
+.background {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    overflow: hidden;
+    background:
+        radial-gradient(ellipse at 50% 45%, #182039 0%, transparent 60%),
+        linear-gradient(130deg, #090a12, #100b12, #06070d);
+}
+
+.city {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 190px;
+    opacity: 0.35;
+    background:
+      linear-gradient(90deg,
+        transparent 0 3%, #101728 3% 8%,
+        transparent 8% 10%, #151b2a 10% 17%,
+        transparent 17% 20%, #101728 20% 29%,
+        transparent 29% 32%, #151b2a 32% 40%,
+        transparent 40% 44%, #101728 44% 52%,
+        transparent 52% 55%, #151b2a 55% 65%,
+        transparent 65% 69%, #101728 69% 79%,
+        transparent 79% 83%, #151b2a 83% 94%,
+        transparent 94%);
+    clip-path: polygon(
+      0 40%, 5% 40%, 5% 10%, 12% 10%,
+      12% 50%, 20% 50%, 20% 0%, 28% 0%,
+      28% 60%, 35% 60%, 35% 25%, 43% 25%,
+      43% 55%, 52% 55%, 52% 5%, 59% 5%,
+      59% 45%, 68% 45%, 68% 15%, 77% 15%,
+      77% 55%, 86% 55%, 86% 0%, 94% 0%,
+      94% 50%, 100% 50%, 100% 100%, 0 100%
+    );
+}
+
+.glow {
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    background: var(--accent);
+    filter: blur(150px);
+    opacity: 0.12;
+    top: 20%;
+    left: 35%;
+    transition: background 0.5s;
+}
+
+.web-pattern {
+    position: absolute;
+    top: -90px;
+    left: -90px;
+    width: 320px;
+    height: 320px;
+    border: 1px solid var(--second);
+    border-radius: 50%;
+    opacity: 0.2;
+    background: repeating-conic-gradient(
+      from 0deg,
+      transparent 0deg 14deg,
+      var(--second) 14.5deg 15deg,
+      transparent 15.5deg 30deg
+    );
+    -webkit-mask-image: radial-gradient(
+      circle, transparent 0 12%, black 13% 100%
+    );
+    mask-image: radial-gradient(
+      circle, transparent 0 12%, black 13% 100%
+    );
+}
+
+body.batman .web-pattern {
+    display: none;
+}
+
+.bat-signal {
+    display: none;
+    position: absolute;
+    top: 100px;
+    right: 5%;
+    font-size: 100px;
+    color: var(--gold);
+    opacity: 0.12;
+    filter: drop-shadow(0 0 35px var(--gold));
+}
+
+body.batman .bat-signal {
+    display: block;
+}
+
+body.batman .web-decoration {
+    display: none;
+}
+
+/* NAVBAR */
+
+header {
+    padding: 25px 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ffffff18;
+    background: #07080eaa;
+    backdrop-filter: blur(12px);
+    position: relative;
+    z-index: 5;
+}
+
+.logo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.logo span {
+    color: var(--accent);
+}
+
+.theme-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.theme-buttons button {
+    padding: 9px 15px;
+    background: transparent;
+    color: white;
+    border: 1px solid #ffffff55;
+    border-radius: 25px;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 700;
+}
+
+.theme-buttons button.active,
+.theme-buttons button:hover {
+    background: var(--accent);
+    color: #08080c;
+    border-color: var(--accent);
+}
+
+/* HERO */
+
+.hero {
+    min-height: 650px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 75px 20px;
+    position: relative;
+}
+
+.hero-content {
+    max-width: 850px;
+    z-index: 2;
+}
+
+.top-label {
+    color: var(--accent);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 12px;
+    letter-spacing: 5px;
+    margin-bottom: 25px;
+}
+
+.hero h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(45px, 9vw, 95px);
+    line-height: 1.12;
+    font-weight: 900;
+    text-shadow: 0 0 35px #000;
+}
+
+.hero h1 span {
+    color: var(--accent);
+    text-shadow: 0 0 25px var(--accent);
+}
+
+.hero-description {
+    color: #c5c5d0;
+    font-size: 20px;
+    line-height: 1.7;
+    max-width: 600px;
+    margin: 25px auto 35px;
+}
+
+.hero-tag {
+    display: inline-block;
+    padding: 10px 25px;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    letter-spacing: 3px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    border-radius: 4px;
+}
+
+.main-button {
+    display: inline-block;
+    background: var(--accent);
+    color: #08080c;
+    border: none;
+    padding: 16px 35px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 0 25px #ffffff15;
+    transition: 0.3s;
+}
+
+.main-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 35px var(--accent);
+}
+
+.web-decoration {
+    position: absolute;
+    font-size: 85px;
+    opacity: 0.16;
+    color: var(--second);
+    animation: float 4s infinite ease-in-out;
+}
+
+.decoration-one {
+    top: 15%;
+    left: 8%;
+}
+
+.decoration-two {
+    bottom: 15%;
+    right: 8%;
+    animation-delay: 1s;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+/* MESSAGE */
+
+.section {
+    padding: 90px 8%;
+    text-align: center;
+    position: relative;
+}
+
+.section-label {
+    color: var(--accent);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+}
+
+.section h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(25px, 4vw, 40px);
+    margin-bottom: 20px;
+}
+
+.section h2 span {
+    color: var(--accent);
+}
+
+.message-box {
+    max-width: 750px;
+    margin: 35px auto 0;
+    padding: 40px;
+    background: linear-gradient(135deg, #ffffff10, #ffffff03);
+    border: 1px solid #ffffff22;
+    border-top: 2px solid var(--accent);
+    border-radius: 10px;
+    line-height: 2;
+    font-size: 19px;
+    color: #dddde6;
+}
+
+/* SUPERPOWERS */
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    margin-top: 45px;
+}
+
+.card {
+    padding: 35px 20px;
+    background: #ffffff08;
+    border: 1px solid #ffffff20;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    border-color: var(--accent);
+    box-shadow: 0 0 25px #ffffff12;
+}
+
+.card .emoji {
+    font-size: 45px;
+    margin-bottom: 20px;
+}
+
+.card h3 {
+    color: var(--accent);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.card p {
+    color: #bcbcc8;
+    font-size: 17px;
+    line-height: 1.7;
+}
+
+/* SECRET SURPRISE */
+
+.surprise-section {
+    background: #ffffff05;
+    border-top: 1px solid #ffffff15;
+    border-bottom: 1px solid #ffffff15;
+}
+
+.secret-box {
+    max-width: 650px;
+    margin: 35px auto 0;
+    padding: 35px;
+    background: #08090e;
+    border: 1px solid var(--accent);
+    border-radius: 10px;
+    display: none;
+    animation: reveal 0.8s ease;
+}
+
+@keyframes reveal {
+    from {
+        opacity: 0;
+        transform: scale(0.85);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.secret-box h3 {
+    color: var(--accent);
+    font-family: 'Orbitron', sans-serif;
+    margin-bottom: 20px;
+}
+
+.secret-box p {
+    line-height: 2;
+    font-size: 19px;
+    color: #dedee6;
+}
+
+.secret-box.show {
+    display: block;
+}
+
+/* FINAL */
+
+.final-section {
+    padding: 100px 20px;
+    text-align: center;
+}
+
+.final-section h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(30px, 6vw, 60px);
+    margin-bottom: 25px;
+}
+
+.final-section h2 span {
+    color: var(--accent);
+}
+
+.final-section p {
+    color: #bbb;
+    font-size: 20px;
+}
+
+footer {
+    padding: 30px 15px;
+    text-align: center;
+    color: #888;
+    border-top: 1px solid #ffffff15;
+    line-height: 2;
+}
+
+footer span {
+    color: var(--accent);
+}
+
+/* RESPONSIVE */
+
+@media(max-width: 700px) {
+    header {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .hero {
+        min-height: 580px;
+    }
+
+    .hero-description {
+        font-size: 17px;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .message-box {
+        padding: 25px;
+    }
+
+    .web-decoration {
+        font-size: 50px;
+    }
+
+    .bat-signal {
+        font-size: 65px;
+    }
+}
+</style>
+</head>
+
+<body class="spiderman">
+
+<div class="background">
+    <div class="glow"></div>
+    <div class="web-pattern"></div>
+    <div class="bat-signal">🦇</div>
+    <div class="city"></div>
+</div>
+
+<header>
+    <div class="logo">RAJDEEP<span>™</span></div>
+
+    <div class="theme-buttons">
+        <button class="active" id="spiderBtn"
+            onclick="changeTheme('spiderman')">
+            🕷 SPIDER
+        </button>
+
+        <button id="batBtn"
+            onclick="changeTheme('batman')">
+            🦇 BATMAN
+        </button>
+    </div>
+</header>
+
+<!-- HERO SECTION -->
+
+<section class="hero">
+
+    <div class="web-decoration decoration-one">🕸</div>
+    <div class="web-decoration decoration-two">🕷</div>
+
+    <div class="hero-content">
+
+        <div class="hero-tag">
+            19 NOVEMBER • INTERNATIONAL MEN'S DAY
+        </div>
+
+        <p class="top-label">
+            THIS WORLD HAS MANY HEROES
+        </p>
+
+        <h1>
+            NOT ALL HEROES<br>
+            <span>WEAR CAPES.</span>
+        </h1>
+
+        <p class="hero-description">
+            Some have superpowers.
+            Some have courage.
+            And some are simply one of a kind.
+
+            Today, this one's for YOU, Rajdeep.
+        </p>
+
+        <button class="main-button" onclick="goToMessage()">
+            ENTER YOUR UNIVERSE →
+        </button>
+
+    </div>
+</section>
+
+<!-- PERSONAL MESSAGE -->
+
+<section class="section" id="message">
+
+    <p class="section-label">01 / A SPECIAL MESSAGE</p>
+
+    <h2>
+        HEY, <span>RAJDEEP!</span>
+    </h2>
+
+    <div class="message-box">
+        To the guy who deserves his own superhero movie.
+
+        You don't need to save the entire world to be a hero.
+        Your strength, your attitude, your personality
+        and the person you are make you special.
+
+        Never let anyone make you question your worth.
+
+        Keep your head high, your standards higher,
+        and your superhero attitude always ON.
+
+        <br><br>
+
+        <strong style="color:var(--accent)">
+            HAPPY INTERNATIONAL MEN'S DAY! 🖤
+        </strong>
+    </div>
+</section>
+
+<!-- SUPERPOWERS -->
+
+<section class="section">
+
+    <p class="section-label">02 / CLASSIFIED SUPERPOWERS</p>
+
+    <h2>
+        WHAT MAKES YOU <span>LEGENDARY?</span>
+    </h2>
+
+    <div class="cards">
+
+        <div class="card">
+            <div class="emoji">⚡</div>
+            <h3>THE ATTITUDE</h3>
+            <p>
+                Not ordinary. Not replaceable.
+                Your personality has its own signature style.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="emoji">🛡️</div>
+            <h3>THE STRENGTH</h3>
+            <p>
+                Even on difficult days, you have
+                the power to keep moving forward.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="emoji">👑</div>
+            <h3>THE ORIGINAL</h3>
+            <p>
+                No copy. No competition.
+                There's only one Rajdeep.
+            </p>
+        </div>
+
+    </div>
+</section>
+
+<!-- SECRET SURPRISE -->
+
+<section class="section surprise-section">
+
+    <p class="section-label">03 / TOP SECRET</p>
+
+    <h2>
+        A MESSAGE JUST <span>FOR YOU.</span>
+    </h2>
+
+    <p style="color:#aaa;font-size:18px;margin-bottom:30px">
+        This message is classified. Only Rajdeep can unlock it.
+    </p>
+
+    <button class="main-button" id="surpriseButton"
+        onclick="revealSecret()">
+        🔒 UNLOCK SECRET MESSAGE
+    </button>
+
+    <div class="secret-box" id="secretBox">
+
+        <h3>MISSION COMPLETE! ❤️</h3>
+
+        <p>
+            Okay, Mr. Rajdeep...
+
+            Here's something you should know.
+
+            You are not just another person.
+            You are my favourite person.
+
+            I hope you always find reasons to smile,
+            strength to fight your battles,
+            and happiness in every little thing.
+
+            Never change just to fit into someone else's world.
+
+            Stay original. Stay unstoppable.
+            Keep being YOU.
+
+            <br><br>
+
+            <strong style="color:var(--accent)">
+                YOU'RE MY FAVOURITE HUMAN.
+                NO SUPERHERO CAN COMPETE WITH THAT. 🖤
+            </strong>
+        </p>
+
+    </div>
+
+</section>
+
+<!-- FINAL SECTION -->
+
+<section class="final-section">
+
+    <p class="section-label">FINAL TRANSMISSION</p>
+
+    <h2>
+        KEEP BEING <span>LEGENDARY.</span>
+    </h2>
+
+    <p>
+        Happy Men's Day, Rajdeep! 🕷️🦇
+    </p>
+
+    <p style="margin-top:20px;font-size:15px">
+        Made with love, just for you. ❤️
+    </p>
+
+</section>
+
+<footer>
+    <p>© 2026 RAJDEEP UNIVERSE</p>
+    <p>ONE PERSON. <span>INFINITE ATTITUDE.</span></p>
+    <p>CLASSIFIED WITH LOVE ❤️</p>
+</footer>
+
+<script>
+
+// SWITCH SUPERHERO THEME
+
+function changeTheme(theme) {
+
+    document.body.className = theme;
+
+    document.getElementById("spiderBtn")
+        .classList.toggle("active", theme === "spiderman");
+
+    document.getElementById("batBtn")
+        .classList.toggle("active", theme === "batman");
+
+    const button = document.getElementById("surpriseButton");
+
+    if (theme === "batman") {
+        button.textContent = "🦇 UNLOCK SECRET MESSAGE";
+    } else {
+        button.textContent = "🕷 UNLOCK SECRET MESSAGE";
+    }
+}
+
+// SCROLL TO MESSAGE
+
+function goToMessage() {
+
+    document.getElementById("message")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+
+}
+
+// REVEAL SECRET MESSAGE
+
+function revealSecret() {
+
+    const secret = document.getElementById("secretBox");
+
+    secret.classList.add("show");
+
+    document.getElementById("surpriseButton")
+        .textContent = "❤️ MISSION COMPLETED";
+
+    secret.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+
+}
+
+</script>
+
+</body>
+</html>
